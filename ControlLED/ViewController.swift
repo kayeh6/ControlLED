@@ -11,7 +11,6 @@ import UIKit
 import FirebaseDatabase
 
 class ViewController: UIViewController {
-    var ref: DatabaseReference!
     
     @IBOutlet weak var blueBtn: UIButton!
     @IBOutlet weak var redBtn: UIButton!
@@ -25,9 +24,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         getOnNet()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,9 +34,21 @@ class ViewController: UIViewController {
     
     @IBAction func btnAction(_ sender: UIButton) {
         
-        // tag100: 綠色btn, 200: 黃色btn, 300: 紅色btn
+        // tag100: 藍色btn, 200: 紅色btn, 300: 綠色btn
         
         sender.isSelected = sender.isSelected ? false : true
+        
+        switch sender.tag
+        {
+            case 100:
+                ref.child("led/led17/on").setValue(sender.isSelected ? true : false)
+            case 200:
+                ref.child("led/led22/on").setValue(sender.isSelected ? true : false)
+            case 300:
+                ref.child("led/led27/on").setValue(sender.isSelected ? true : false)
+            default:
+                break
+        }
     }
     
     func getOnNet() {
